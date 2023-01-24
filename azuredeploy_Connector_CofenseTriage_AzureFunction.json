@@ -218,7 +218,7 @@
 						"Proxy_URL": "[parameters('Proxy_URL')]",
 						"Proxy_Port": "[parameters('Proxy_Port')]",
                         "Schedule": "[parameters('Schedule')]",
-                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/jayeshprajapaticrest/BitSightSentinel/blob/main/BitSight.zip?raw=true"
+                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/cofense-triage/blob/main/Cofense.zip?raw=true"
                     }
                 }
             ]
