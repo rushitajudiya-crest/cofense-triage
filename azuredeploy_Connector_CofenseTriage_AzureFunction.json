@@ -221,7 +221,7 @@
 			"Proxy_Password": "[parameters('Proxy_Password')]",
 			"Proxy_URL": "[parameters('Proxy_URL')]",
 			"Proxy_Port": "[parameters('Proxy_Port')]",
-			"Reports_Table_name": "[parameters('Proxy_Port')]",
+			"Reports_Table_name": "[parameters('Reports_Table_name')]",
                         "Schedule": "[parameters('Schedule')]",
 			"LogLevel": "[parameters('LogLevel')]",
                         "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/cofense-triage/blob/main/Cofense.zip?raw=true"
