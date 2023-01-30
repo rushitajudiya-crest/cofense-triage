@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "FunctionName": {
-            "defaultValue": "BitSight",
+            "defaultValue": "Cofense",
             "minLength": 1,
             "maxLength": 11,
             "type": "string"
@@ -18,61 +18,61 @@
         },
         "BaseURL": {
             "type": "string",
-            "defaultValue": "https://reltest6.phishmecloud.com/"
+            "defaultValue": "https://<cofense-instance>.phishmecloud.com/"
         },
         "Cofense_Client_Id":{
-            "type": "string",
-            "defaultValue": "b0CqoyHlAnptQlQW0h45XV8Ka2b7dKczZzatP-zNESo"
+            "type": "securestring",
+            "defaultValue": "<cofenseClientId>"
         },
-	"Cofense_Client_Secret":{
-            "type": "string",
-            "defaultValue": "QOrEEbN7vp8xjAXm4uqJPJVkOjVB94mtOEYXiriAx8M"
+	    "Cofense_Client_Secret":{
+            "type": "securestring",
+            "defaultValue": "<cofenseClientSecret>"
         },
-	"Azure_Client_Id":{
-            "type": "string",
-            "defaultValue": "39601350-e6d8-48f7-9400-c8041922d817"
+	    "Azure_Client_Id":{
+            "type": "securestring",
+            "defaultValue": "<azureClientId>"
         },
-	"Azure_Client_Secret":{
-            "type": "string",
-            "defaultValue": "5Fu8Q~91sXrKQa_x8U55B0TZuymvbm0YD2PXIao1"
+	    "Azure_Client_Secret":{
+            "type": "securestring",
+            "defaultValue": "<azureClientSecret>"
         },
-	"Azure_Tenant_Id":{
-            "type": "string",
-            "defaultValue": "3adb963c-8e61-48e8-a06d-6dbb0dacea39"
+	    "Azure_Tenant_Id":{
+            "type": "securestring",
+            "defaultValue": "<azureTenantId>"
         },
-	"Azure_Resource_Group_Name":{
+	    "Azure_Resource_Group_Name":{
             "type": "string",
-            "defaultValue": "Cofense_Sentinel_Integration_29598"
+            "defaultValue": "<ResourceGroupName>"
         },
-	"Azure_Workspace_Name":{
+	    "Azure_Workspace_Name":{
             "type": "string",
-            "defaultValue": "cofense-sentinel-workspace-1"
+            "defaultValue": "<AzureWorkspaceName>"
         },
-	"Azure_Subscription_Id":{
-            "type": "string",
-            "defaultValue": "ec3e5f16-67b5-40aa-9289-23311c95451c"
+	    "Azure_Subscription_Id":{
+            "type": "securestring",
+            "defaultValue": "<azureSubscriptionId>"
         },
-	"Proxy_Username":{
+	    "Proxy_Username":{
             "type": "string",
-            "defaultValue": "crest"
+            "defaultValue": "<proxyUsername>"
         },
-	"Proxy_Password":{
-            "type": "string",
-            "defaultValue": "Crest123"
+	    "Proxy_Password":{
+            "type": "securestring",
+            "defaultValue": "<ProxyPassword>"
         },
-	"Proxy_URL":{
+	    "Proxy_URL":{
             "type": "string",
-            "defaultValue": "103.108.207.59"
+            "defaultValue": "<ProxyURL>"
         },
         "Proxy_Port":{
             "type": "string",
-            "defaultValue": "9480"
+            "defaultValue": "<ProxyPort>"
         },
         "LogLevel":{
             "type": "string",
             "defaultValue": "DEBUG"
         },
-	"Reports_Table_name":{
+	    "Reports_Table_name":{
             "type": "string",
             "defaultValue": "reports_table"
         },
@@ -209,21 +209,21 @@
                         "WorkspaceID": "[parameters('WorkspaceID')]",
                         "WorkspaceKey": "[parameters('WorkspaceKey')]",
                         "BaseURL": "[parameters('BaseURL')]",
-			"Cofense_Client_Id": "[parameters('Cofense_Client_Id')]",
-			"Cofense_Client_Secret": "[parameters('Cofense_Client_Secret')]",
-			"Azure_Client_Id": "[parameters('Azure_Client_Id')]",
-			"Azure_Client_Secret": "[parameters('Azure_Client_Secret')]",
-			"Azure_Tenant_Id": "[parameters('Azure_Tenant_Id')]",
-			"Azure_Resource_Group_Name": "[parameters('Azure_Resource_Group_Name')]",
-			"Azure_Workspace_Name": "[parameters('Azure_Workspace_Name')]",
-			"Azure_Subscription_Id": "[parameters('Azure_Subscription_Id')]",
-			"Proxy_Username": "[parameters('Proxy_Username')]",
-			"Proxy_Password": "[parameters('Proxy_Password')]",
-			"Proxy_URL": "[parameters('Proxy_URL')]",
-			"Proxy_Port": "[parameters('Proxy_Port')]",
-			"Reports_Table_name": "[parameters('Reports_Table_name')]",
+                        "Cofense_Client_Id": "[parameters('Cofense_Client_Id')]",
+                        "Cofense_Client_Secret": "[parameters('Cofense_Client_Secret')]",
+                        "Azure_Client_Id": "[parameters('Azure_Client_Id')]",
+                        "Azure_Client_Secret": "[parameters('Azure_Client_Secret')]",
+                        "Azure_Tenant_Id": "[parameters('Azure_Tenant_Id')]",
+                        "Azure_Resource_Group_Name": "[parameters('Azure_Resource_Group_Name')]",
+                        "Azure_Workspace_Name": "[parameters('Azure_Workspace_Name')]",
+                        "Azure_Subscription_Id": "[parameters('Azure_Subscription_Id')]",
+                        "Proxy_Username": "[parameters('Proxy_Username')]",
+                        "Proxy_Password": "[parameters('Proxy_Password')]",
+                        "Proxy_URL": "[parameters('Proxy_URL')]",
+                        "Proxy_Port": "[parameters('Proxy_Port')]",
+                        "Reports_Table_name": "[parameters('Reports_Table_name')]",
                         "Schedule": "[parameters('Schedule')]",
-			"LogLevel": "[parameters('LogLevel')]",
+			            "LogLevel": "[parameters('LogLevel')]",
                         "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/cofense-triage/blob/main/Cofense.zip?raw=true"
                     }
                 }
