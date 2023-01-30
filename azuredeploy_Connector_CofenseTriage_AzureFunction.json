@@ -12,77 +12,77 @@
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "enter Workspace ID."
+                "description": "Enter Workspace ID."
             }
         },
         "WorkspaceKey": {
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "enter Workspace Key."
+                "description": "Enter Workspace Key."
             }
         },
         "BaseURL": {
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "enter Base URL for example https://cofense-instance.phishmecloud.com/."
+                "description": "Enter Base URL for example https://your-cofense-instance-name.phishmecloud.com/."
             }
         },
         "Cofense_Client_Id":{
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "enter Cofense Client Id."
+                "description": "Enter Cofense Client Id."
             }
         },
 	    "Cofense_Client_Secret":{
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "enter Cofense Client Secret."
+                "description": "Enter Cofense Client Secret."
             }
         },
 	    "Azure_Client_Id":{
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "enter Azure Client Id."
+                "description": "Enter Azure Client Id."
             }
         },
 	    "Azure_Client_Secret":{
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "enter Azure Client Secret."
+                "description": "Enter Azure Client Secret."
             }
         },
 	    "Azure_Tenant_Id":{
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "enter Azure Tenant Id."
+                "description": "Enter Azure Tenant Id."
             }
         },
 	    "Azure_Resource_Group_Name":{
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "enter Azure Resource Group Name."
+                "description": "Enter Azure Resource Group Name."
             }
         },
 	    "Azure_Workspace_Name":{
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "enter Azure Workspace Name."
+                "description": "Enter Azure Workspace Name."
             }
         },
 	    "Azure_Subscription_Id":{
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "enter Azure Subscription Id."
+                "description": "Enter Azure Subscription Id."
             }
         },
 	    "Proxy_Username":{
@@ -110,7 +110,7 @@
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "this is an optional parameter if required enter the proxy prot."
+                "description": "this is an optional parameter if required enter the proxy port."
             }
         },
         "LogLevel":{
@@ -125,7 +125,7 @@
             "type": "string",
             "minLength": 11,
             "metadata": {
-                "description": "enter cron expression."
+                "description": "Enter cron expression."
             }
         }
     },
