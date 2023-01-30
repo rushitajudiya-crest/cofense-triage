@@ -10,7 +10,6 @@
         },
         "WorkspaceID": {
             "type": "string",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Workspace ID."
@@ -18,7 +17,6 @@
         },
         "WorkspaceKey": {
             "type": "securestring",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Workspace Key."
@@ -26,7 +24,6 @@
         },
         "BaseURL": {
             "type": "string",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Base URL for https://<cofense-instance>.phishmecloud.com/."
@@ -34,7 +31,6 @@
         },
         "Cofense_Client_Id":{
             "type": "securestring",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Cofense Client Id."
@@ -42,7 +38,6 @@
         },
 	    "Cofense_Client_Secret":{
             "type": "securestring",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Cofense Client Secret."
@@ -50,7 +45,6 @@
         },
 	    "Azure_Client_Id":{
             "type": "securestring",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Azure Client Id."
@@ -58,7 +52,6 @@
         },
 	    "Azure_Client_Secret":{
             "type": "securestring",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Azure Client Secret."
@@ -66,7 +59,6 @@
         },
 	    "Azure_Tenant_Id":{
             "type": "securestring",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Azure Tenant Id."
@@ -74,7 +66,6 @@
         },
 	    "Azure_Resource_Group_Name":{
             "type": "string",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Azure Resource Group Name."
@@ -82,7 +73,6 @@
         },
 	    "Azure_Workspace_Name":{
             "type": "string",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Azure Workspace Name."
@@ -90,7 +80,6 @@
         },
 	    "Azure_Subscription_Id":{
             "type": "securestring",
-            "defaultValue": "",
             "minLength": 1,
             "metadata": {
                 "description": "enter Azure Subscription Id."
