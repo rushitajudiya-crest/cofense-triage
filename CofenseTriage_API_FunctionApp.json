@@ -1,33 +1,33 @@
 {
-    "id": "BitSightAlerts",
-    "title": "BitSight Alerts",
-    "publisher": "BitSight",
-    "descriptionMarkdown": "The [BitSight](https://www.BitSight.com/) Alerts connector gives the capability to ingest BitSight Alerts into Microsoft Sentinel through the BitSight REST API. Refer to the API documentation: `https://<YourBitSightInstance>.BitSight.com/api/v1/docs` for more information. The connector provides the ability to get alert information from the BitSight platform and to identify and prioritize threats in your environment. BitSight uses your existing infrastructure to discover and identify devices without having to deploy any agents. ",
-    "additionalRequirementBanner": "These queries and workbooks are dependent on a parser based on Kusto to work as expected. Follow the steps to use this Kusto functions alias **BitSightAlerts** in queries and workbooks [Follow steps to get this Kusto functions>](https://aka.ms/sentinel-BitSightAlertsAPI-parser).",
+    "id": "CofenseThreatIndicators",
+    "title": "Cofense Triage",
+    "publisher": "Cofense-Triage",
+    "descriptionMarkdown": "The [Cofense-Triage](https://cofense.com/product-services/cofense-triage/) CofenseThreatIndicators connector gives the capability to ingest Cofense Threat Indicator into Microsoft Sentinel Threat Intelligence Indicator through the Cofense REST API and Microsoft Sentinel and also Microsoft Threat Intelligence Indicators into Cofense Threat Indicators using REST APIs of Cofense and Microsoft Sentinel. Refer to the Cofense API documentation: `https://<YourCofenseInstance>.phishmecloud.com/docs/api/v2/index.html` for more information. The connector provides the ability to get threat indicators information from the Cofense platform and get threat intelligence indicators from microsoft sentinel.",
+    "additionalRequirementBanner": "These queries and workbooks are dependent on a parser based on Kusto to work as expected. Follow the steps to use this Kusto functions alias **CofenseThreatIndicators** in queries and workbooks [Follow steps to get this Kusto functions>](https://aka.ms/sentinel-CofenseReportsLinkAPI-parser).",
     "graphQueries": [
         {
-            "metricName": "Total Alerts data received",
-            "legend": "BitSight_Alerts_CL",
-            "baseQuery": "BitSight_Alerts_CL"
+            "metricName": "Total reports link data received",
+            "legend": "Cofense_Reports_CL",
+            "baseQuery": "Cofense_Reports_CL"
         }
     ],
     "sampleQueries": [
         {
-            "description" : "BitSight Alert Events - All Alerts Activities.",
-            "query": "BitSight_Alerts_CL\n | sort by TimeGenerated desc"
+            "description" : "Cofense reports link Events - All reports link data.",
+            "query": "Cofense_Reports_CL\n | sort by TimeGenerated desc"
         }
     ],
     "dataTypes": [
         {
-            "name": "BitSight_Alerts_CL",
-            "lastDataReceivedQuery": "BitSight_Alerts_CL\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
+            "name": "Cofense_Reports_CL",
+            "lastDataReceivedQuery": "Cofense_Reports_CL\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
         }
     ],
     "connectivityCriterias": [
         {
             "type": "IsConnectedQuery",
             "value": [
-                "BitSight_Alerts_CL\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
+                "Cofense_Reports_CL\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
             ]
         }
     ],
@@ -64,28 +64,28 @@
         },
         {
             "name": "REST API Credentials/permissions",
-            "description": "**BitSight Secret Key** is required.  See the documentation to learn more about API on the `https://<YourBitSightInstance>.BitSight.com/api/v1/doc`"
+            "description": "**Cofense Client ID** and **Cofense Client Secret** is required.  See the documentation to learn more about API on the `https://<YourCofenseInstance>.phishmecloud.com/docs/api/v2/index.html`"
         }
         ]
     },
     "instructionSteps": [{
             "title": "",
-            "description": ">**NOTE:** This connector uses Azure Functions to connect to the BitSight API to pull its logs into Microsoft Sentinel. This might result in additional data ingestion costs. Check the [Azure Functions pricing page](https://azure.microsoft.com/pricing/details/functions/) for details."
+            "description": ">**NOTE:** This connector uses Azure Functions to connect to the Cofense API to pull its threat indicators into Microsoft Sentinel Threat Intelligence. This might result in additional data ingestion costs. Check the [Azure Functions pricing page](https://azure.microsoft.com/pricing/details/functions/) for details."
         },
         {
             "title": "",
             "description": ">**(Optional Step)** Securely store workspace and API authorization key(s) or token(s) in Azure Key Vault. Azure Key Vault provides a secure mechanism to store and retrieve key values. [Follow these instructions](https://docs.microsoft.com/azure/app-service/app-service-key-vault-references) to use Azure Key Vault with an Azure Function App."
         },
 		{
-			"description": ">**NOTE:** This data connector depends on a parser based on a Kusto Function to work as expected. [Follow these steps](https://aka.ms/sentinel-BitSightAlertsAPI-parser) to create the Kusto functions alias, **BitSightAlerts**"
+			"description": ">**NOTE:** This data connector depends on a parser based on a Kusto Function to work as expected. [Follow these steps](https://aka.ms/sentinel-CofenseReportsLinkAPI-parser) to create the Kusto functions alias, **CofenseThreatIndicators**"
 		},
         {
             "title": "",
-            "description": "**STEP 1 - Configuration steps for the BitSight API**\n\n Follow these instructions to create an BitSight API secret key.\n 1. Log into your BitSight instance\n 2. Navigate to Settings -> API Management\n 3. If the secret key has not already been created, press the Create button to create the secret key\n 4. To access the secret key, press the Show button\n 5. The secret key can now be copied and used during the BitSight Alerts connector configuration"
+            "description": "**STEP 1 - Configuration steps for the Cofense Client ID and Client Secret**\n\n Follow these instructions to create an Cofense Client ID and Client Secret.\n 1. Log into your Cofense instance\n 2. Navigate to Settings -> API Management\n 3. If the secret key has not already been created, press the Create button to create the secret key\n 4. To access the secret key, press the Show button\n 5. The secret key can now be copied and used during the Cofense Threat Indicators connector configuration"
         },
         {
             "title": "",
-            "description": "**STEP 2 - Choose ONE from the following two deployment options to deploy the connector and the associated Azure Function**\n\n>**IMPORTANT:** Before deploying the BitSight Alert data connector, have the Workspace ID and Workspace Primary Key (can be copied from the following) readily available.., as well as the BitSight API Authorization Key(s)",
+            "description": "**STEP 2 - Choose ONE from the following two deployment options to deploy the connector and the associated Azure Function**\n\n>**IMPORTANT:** Before deploying the Cofense Threat Indicators data connector, have the Workspace ID and Workspace Primary Key (can be copied from the following) readily available.., as well as the Cofense API Authorization Key(s)",
             "instructions": [{
                 "parameters": {
                         "fillWith": [
@@ -108,19 +108,19 @@
         },
         {
             "title": "Option 1 - Azure Resource Manager (ARM) Template",
-            "description": "Use this method for automated deployment of the BitSight connector.\n\n1. Click the **Deploy to Azure** button below. \n\n\t[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjayeshprajapaticrest%2FBitSightSentinel%2FBitSightJayesh1301%2Fazuredeploy_Connector_BitSightsAPI_AzureFunction.json)\n2. Select the preferred **Subscription**, **Resource Group** and **Location**. \n3. Enter the below information : \n\t\tFunction Name \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tBitSight Secret Key \n\t\tBitSight URL (https://<BitSight-instance>.BitSight.com/api/v1/) \n\t\tBitSight Alert Table Name \n\t\tBitSight Schedule \n\t\tAvoid Duplicates (Default: true) \n4. Mark the checkbox labeled **I agree to the terms and conditions stated above**. \n5. Click **Purchase** to deploy."
+            "description": "Use this method for automated deployment of the Cofence connector.\n\n1. Click the **Deploy to Azure** button below. \n\n\t[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Frushitajudiya-crest%2Fcofense-triage%2Fmain%2Fazuredeploy_Connector_CofenseTriage_AzureFunction.json)\n2. Select the preferred **Subscription**, **Resource Group** and **Location**. \n3. Enter the below information : \n\t\tFunction Name \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tCofense URL (https://<Cofense-instance>.phishmecloud.com/)  \n\t\tCofense Client ID \n\t\tCofense Client Secret \n\t\tAzure Client ID \n\t\tAzure Client Secret \n\t\tAzure Tenant ID \n\t\tAzure Resource Group Name \n\t\tAzure Workspace Name \n\t\tAzure Subscription ID \n\t\tProxy Username \n\t\tProxy Password \n\t\tProxy URL \n\t\tProxy Port \n\t\tLogLevel \n\t\tReports Table Name \n\t\tSchedule \n4. Mark the checkbox labeled **I agree to the terms and conditions stated above**. \n5. Click **Purchase** to deploy."
         },
         {
             "title": "Option 2 - Manual Deployment of Azure Functions",
-            "description": "Use the following step-by-step instructions to deploy the BitSight Alert data connector manually with Azure Functions (Deployment via Visual Studio Code)."
+            "description": "Use the following step-by-step instructions to deploy the Cofense Threat Indicators data connector manually with Azure Functions (Deployment via Visual Studio Code)."
         },
         {
             "title": "",
-            "description": "**1. Deploy a Function App**\n\n> **NOTE:** You will need to [prepare VS code](https://docs.microsoft.com/azure/azure-functions/functions-create-first-function-python#prerequisites) for Azure function development.\n\n1. Download the [Azure Function App](https://aka.ms/sentinel-BitSightAlertsAPI-functionapp) file. Extract archive to your local development computer.\n2. Start VS Code. Choose File in the main menu and select Open Folder.\n3. Select the top level folder from extracted files.\n4. Choose the Azure icon in the Activity bar, then in the **Azure: Functions** area, choose the **Deploy to function app** button.\nIf you aren't already signed in, choose the Azure icon in the Activity bar, then in the **Azure: Functions** area, choose **Sign in to Azure**\nIf you're already signed in, go to the next step.\n5. Provide the following information at the prompts:\n\n\ta. **Select folder:** Choose a folder from your workspace or browse to one that contains your function app.\n\n\tb. **Select Subscription:** Choose the subscription to use.\n\n\tc. Select **Create new Function App in Azure** (Don't choose the Advanced option)\n\n\td. **Enter a globally unique name for the function app:** Type a name that is valid in a URL path. The name you type is validated to make sure that it's unique in Azure Functions. (e.g. BitSightXXXXX).\n\n\te. **Select a runtime:** Choose Python 3.8 or above.\n\n\tf. Select a location for new resources. For better performance and lower costs choose the same [region](https://azure.microsoft.com/regions/) where Microsoft Sentinel is located.\n\n6. Deployment will begin. A notification is displayed after your function app is created and the deployment package is applied.\n7. Go to Azure Portal for the Function App configuration."
+            "description": "**1. Deploy a Function App**\n\n> **NOTE:** You will need to [prepare VS code](https://docs.microsoft.com/azure/azure-functions/functions-create-first-function-python#prerequisites) for Azure function development.\n\n1. Download the [Azure Function App](https://aka.ms/sentinel-CofenseThreatIndicatorsAPI-functionapp) file. Extract archive to your local development computer.\n2. Start VS Code. Choose File in the main menu and select Open Folder.\n3. Select the top level folder from extracted files.\n4. Choose the Azure icon in the Activity bar, then in the **Azure: Functions** area, choose the **Deploy to function app** button.\nIf you aren't already signed in, choose the Azure icon in the Activity bar, then in the **Azure: Functions** area, choose **Sign in to Azure**\nIf you're already signed in, go to the next step.\n5. Provide the following information at the prompts:\n\n\ta. **Select folder:** Choose a folder from your workspace or browse to one that contains your function app.\n\n\tb. **Select Subscription:** Choose the subscription to use.\n\n\tc. Select **Create new Function App in Azure** (Don't choose the Advanced option)\n\n\td. **Enter a globally unique name for the function app:** Type a name that is valid in a URL path. The name you type is validated to make sure that it's unique in Azure Functions. (e.g. CofenseXXXXX).\n\n\te. **Select a runtime:** Choose Python 3.8 or above.\n\n\tf. Select a location for new resources. For better performance and lower costs choose the same [region](https://azure.microsoft.com/regions/) where Microsoft Sentinel is located.\n\n6. Deployment will begin. A notification is displayed after your function app is created and the deployment package is applied.\n7. Go to Azure Portal for the Function App configuration."
         },
         {
             "title": "",
-            "description": "**2. Configure the Function App**\n\n1. In the Function App, select the Function App Name and select **Configuration**.\n2. In the **Application settings** tab, select **+ New application setting**.\n3. Add each of the following application settings individually, with their respective values (case-sensitive): \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tBitSight Secret Key \n\t\tBitSight URL (https://<BitSight-instance>.BitSight.com/api/v1/) \n\t\tBitSight Alert Table Name \n\t\tBitSight Schedule \n\t\tAvoid Duplicates (Default: true) \n\t\tlogAnalyticsUri (optional) \n - Use logAnalyticsUri to override the log analytics API endpoint for dedicated cloud. For example, for public cloud, leave the value empty; for Azure GovUS cloud environment, specify the value in the following format: `https://<CustomerId>.ods.opinsights.azure.us`.\n4. Once all application settings have been entered, click **Save**."
+            "description": "**2. Configure the Function App**\n\n1. In the Function App, select the Function App Name and select **Configuration**.\n2. In the **Application settings** tab, select **+ New application setting**.\n3. Add each of the following application settings individually, with their respective values (case-sensitive): \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tCofense URL (https://<Cofense-instance>.phishmecloud.com/)  \n\t\tCofense Client ID \n\t\tCofense Client Secret \n\t\tAzure Client ID \n\t\tAzure Client Secret \n\t\tAzure Tenant ID \n\t\tAzure Resource Group Name \n\t\tAzure Workspace Name \n\t\tAzure Subscription ID \n\t\tProxy Username \n\t\tProxy Password \n\t\tProxy URL \n\t\tProxy Port \n\t\tLogLevel \n\t\tReports Table Name \n\t\tSchedule \n\t\tlogAnalyticsUri (optional) \n - Use logAnalyticsUri to override the log analytics API endpoint for dedicated cloud. For example, for public cloud, leave the value empty; for Azure GovUS cloud environment, specify the value in the following format: `https://<CustomerId>.ods.opinsights.azure.us`.\n4. Once all application settings have been entered, click **Save**."
         }
     ]
 }
