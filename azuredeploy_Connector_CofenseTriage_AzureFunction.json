@@ -26,7 +26,7 @@
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "enter Base URL for https://<cofense-instance>.phishmecloud.com/."
+                "description": "enter Base URL for example https://cofense-instance.phishmecloud.com/."
             }
         },
         "Cofense_Client_Id":{
