@@ -78,8 +78,10 @@
         },
         "Schedule":{
             "type": "string",
-            "defaultValue": "<cron expression>",
-            "minLength": 11
+            "minLength": 11,
+            "metadata": {
+                "description": "enter cron expression."
+            }
         }
     },
     "variables": {
