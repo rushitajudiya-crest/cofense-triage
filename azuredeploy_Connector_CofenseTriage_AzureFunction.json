@@ -78,7 +78,8 @@
         },
         "Schedule":{
             "type": "string",
-            "defaultValue": "<Cron Expression>"
+            "defaultValue": "<cron expression>",
+            "minLength": 11
         }
     },
     "variables": {
