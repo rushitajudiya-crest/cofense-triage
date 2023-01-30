@@ -98,19 +98,31 @@
         },
 	    "Proxy_Username":{
             "type": "string",
-            "defaultValue": "<proxyUsername>"
+            "defaultValue": "",
+            "metadata": {
+                "description": "this is an optional parameter if required enter the proxy username."
+            }
         },
 	    "Proxy_Password":{
             "type": "securestring",
-            "defaultValue": "<ProxyPassword>"
+            "defaultValue": "",
+            "metadata": {
+                "description": "this is an optional parameter if required enter the proxy password."
+            }
         },
 	    "Proxy_URL":{
             "type": "string",
-            "defaultValue": "<ProxyURL>"
+            "defaultValue": "",
+            "metadata": {
+                "description": "this is an optional parameter if required enter the proxy url."
+            }
         },
         "Proxy_Port":{
             "type": "string",
-            "defaultValue": "<ProxyPort>"
+            "defaultValue": "",
+            "metadata": {
+                "description": "this is an optional parameter if required enter the proxy prot."
+            }
         },
         "LogLevel":{
             "type": "string",
