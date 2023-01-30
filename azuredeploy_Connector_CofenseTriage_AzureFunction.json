@@ -10,47 +10,91 @@
         },
         "WorkspaceID": {
             "type": "string",
-            "defaultValue": "<workspaceID>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Workspace ID."
+            }
         },
         "WorkspaceKey": {
             "type": "securestring",
-            "defaultValue": "<workspaceKey>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Workspace Key."
+            }
         },
         "BaseURL": {
             "type": "string",
-            "defaultValue": "https://<cofense-instance>.phishmecloud.com/"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Base URL for https://<cofense-instance>.phishmecloud.com/."
+            }
         },
         "Cofense_Client_Id":{
             "type": "securestring",
-            "defaultValue": "<cofenseClientId>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Cofense Client Id."
+            }
         },
 	    "Cofense_Client_Secret":{
             "type": "securestring",
-            "defaultValue": "<cofenseClientSecret>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Cofense Client Secret."
+            }
         },
 	    "Azure_Client_Id":{
             "type": "securestring",
-            "defaultValue": "<azureClientId>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Azure Client Id."
+            }
         },
 	    "Azure_Client_Secret":{
             "type": "securestring",
-            "defaultValue": "<azureClientSecret>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Azure Client Secret."
+            }
         },
 	    "Azure_Tenant_Id":{
             "type": "securestring",
-            "defaultValue": "<azureTenantId>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Azure Tenant Id."
+            }
         },
 	    "Azure_Resource_Group_Name":{
             "type": "string",
-            "defaultValue": "<ResourceGroupName>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Azure Resource Group Name."
+            }
         },
 	    "Azure_Workspace_Name":{
             "type": "string",
-            "defaultValue": "<AzureWorkspaceName>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Azure Workspace Name."
+            }
         },
 	    "Azure_Subscription_Id":{
             "type": "securestring",
-            "defaultValue": "<azureSubscriptionId>"
+            "defaultValue": "",
+            "minLength": 1,
+            "metadata": {
+                "description": "enter Azure Subscription Id."
+            }
         },
 	    "Proxy_Username":{
             "type": "string",
