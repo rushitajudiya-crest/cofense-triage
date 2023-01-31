@@ -1,33 +1,71 @@
 {
-    "id": "CofenseThreatIndicators",
+    "id": "CofenseTriage",
     "title": "Cofense Triage",
     "publisher": "Cofense-Triage",
-    "descriptionMarkdown": "The [Cofense-Triage](https://cofense.com/product-services/cofense-triage/) CofenseThreatIndicators connector gives the capability to ingest Cofense Threat Indicator into Microsoft Sentinel Threat Intelligence Indicator through the Cofense REST API and Microsoft Sentinel and also Microsoft Threat Intelligence Indicators into Cofense Threat Indicators using REST APIs of Cofense and Microsoft Sentinel. Refer to the Cofense API documentation: `https://<YourCofenseInstance>.phishmecloud.com/docs/api/v2/index.html` for more information. The connector provides the ability to get threat indicators information from the Cofense platform and get threat intelligence indicators from microsoft sentinel.",
+    "descriptionMarkdown": "The [Cofense-Triage](https://cofense.com/product-services/cofense-triage/) CofenseTriage connector gives the capability to ingest Cofense Threat Indicator into Microsoft Sentinel Threat Intelligence Indicator through the Cofense REST API and also Microsoft Threat Intelligence Indicators into Cofense Threat Indicators using REST APIs of Cofense and Microsoft Sentinel. Refer to the Cofense API and Microsoft Threat Intelligence Indicator documentation: `https://<YourCofenseInstance>.phishmecloud.com/docs/api/v2/index.html` and `https://learn.microsoft.com/en-us/rest/api/securityinsights/preview/threat-intelligence-indicator` for more information. The connector provides the ability to get threat indicators information from the Cofense platform and get threat intelligence indicators from microsoft sentinel threat intelligence indicators.",
     "additionalRequirementBanner": "These queries and workbooks are dependent on a parser based on Kusto to work as expected. Follow the steps to use this Kusto functions alias **CofenseThreatIndicators** in queries and workbooks [Follow steps to get this Kusto functions>](https://aka.ms/sentinel-CofenseReportsLinkAPI-parser).",
     "graphQueries": [
         {
-            "metricName": "Total reports link data received",
-            "legend": "Cofense_Reports_CL",
-            "baseQuery": "Cofense_Reports_CL"
+            "metricName": "Cofense Threat Indicators data received",
+            "legend": "ThreatIntelligenceIndicator | where SourceSystem startswith 'Cofense : '",
+            "baseQuery": "ThreatIntelligenceIndicator | where SourceSystem startswith 'Cofense : '"
+        },
+        {
+            "metricName": "Total cofense report links data received",
+            "legend": "reports_table_CL",
+            "baseQuery": "reports_table_CL"
+        },
+        {
+            "metricName": "Non-Cofense Threat Indicators data received",
+            "legend": "ThreatIntelligenceIndicator | where SourceSystem !startswith 'Cofense : '",
+            "baseQuery": "ThreatIntelligenceIndicator | where SourceSystem !startswith 'Cofense : '"
         }
     ],
     "sampleQueries": [
         {
-            "description" : "Cofense reports link Events - All reports link data.",
-            "query": "Cofense_Reports_CL\n | sort by TimeGenerated desc"
+            "description": "Cofense Based Indicators Events - All Cofense indicators in Microsoft Sentinel Threat Intelligence.",
+            "query": "ThreatIntelligenceIndicator | where SourceSystem startswith 'Cofense : ' | sort by TimeGenerated desc"
+        },
+        {
+            "description": "Cofense report links Events - All cofense indicators report links data.",
+            "query": "reports_table_CL\n | sort by TimeGenerated desc"
+        },
+        {
+            "description": "Non-Cofense Based Indicators Events - All Non-Cofense indicators in Microsoft Sentinel Threat Intelligence.",
+            "query": "ThreatIntelligenceIndicator | where SourceSystem !startswith 'Cofense : ' | sort by TimeGenerated desc"
         }
     ],
     "dataTypes": [
         {
-            "name": "Cofense_Reports_CL",
-            "lastDataReceivedQuery": "Cofense_Reports_CL\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
+            "name": "ThreatIntelligenceIndicator",
+            "lastDataReceivedQuery": "ThreatIntelligenceIndicator\n            | where SourceSystem startswith 'Cofense : '\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
+        },
+        {
+            "name": "reports_table_CL",
+            "lastDataReceivedQuery": "reports_table_CL\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
+        },
+        {
+            "name": "ThreatIntelligenceIndicator",
+            "lastDataReceivedQuery": "ThreatIntelligenceIndicator\n             | where SourceSystem !startswith 'Cofense : '\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
         }
     ],
     "connectivityCriterias": [
         {
             "type": "IsConnectedQuery",
             "value": [
-                "Cofense_Reports_CL\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
+                "ThreatIntelligenceIndicator\n            | where SourceSystem startswith 'Cofense : '\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
+            ]
+        },
+        {
+            "type": "IsConnectedQuery",
+            "value": [
+                "reports_table_CL\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
+            ]
+        },
+        {
+            "type": "IsConnectedQuery",
+            "value": [
+                "ThreatIntelligenceIndicator\n             | where SourceSystem !startswith 'Cofense : '\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
             ]
         }
     ],
@@ -58,17 +96,19 @@
                 }
             }
         ],
-        "customs": [{
-            "name": "Microsoft.Web/sites permissions",
-            "description": "Read and write permissions to Azure Functions to create a Function App is required. [See the documentation to learn more about Azure Functions](https://docs.microsoft.com/azure/azure-functions/)."
-        },
-        {
-            "name": "REST API Credentials/permissions",
-            "description": "**Cofense Client ID** and **Cofense Client Secret** is required.  See the documentation to learn more about API on the `https://<YourCofenseInstance>.phishmecloud.com/docs/api/v2/index.html`"
-        }
+        "customs": [
+            {
+                "name": "Microsoft.Web/sites permissions",
+                "description": "Read and write permissions to Azure Functions to create a Function App is required. [See the documentation to learn more about Azure Functions](https://docs.microsoft.com/azure/azure-functions/)."
+            },
+            {
+                "name": "REST API Credentials/permissions",
+                "description": "**Cofense Client ID** and **Cofense Client Secret** is required.  See the documentation to learn more about API on the `https://<YourCofenseInstance>.phishmecloud.com/docs/api/v2/index.html`"
+            }
         ]
     },
-    "instructionSteps": [{
+    "instructionSteps": [
+        {
             "title": "",
             "description": ">**NOTE:** This connector uses Azure Functions to connect to the Cofense API to pull its threat indicators into Microsoft Sentinel Threat Intelligence. This might result in additional data ingestion costs. Check the [Azure Functions pricing page](https://azure.microsoft.com/pricing/details/functions/) for details."
         },
@@ -76,18 +116,28 @@
             "title": "",
             "description": ">**(Optional Step)** Securely store workspace and API authorization key(s) or token(s) in Azure Key Vault. Azure Key Vault provides a secure mechanism to store and retrieve key values. [Follow these instructions](https://docs.microsoft.com/azure/app-service/app-service-key-vault-references) to use Azure Key Vault with an Azure Function App."
         },
-		{
-			"description": ">**NOTE:** This data connector depends on a parser based on a Kusto Function to work as expected. [Follow these steps](https://aka.ms/sentinel-CofenseReportsLinkAPI-parser) to create the Kusto functions alias, **CofenseThreatIndicators**"
-		},
         {
             "title": "",
-            "description": "**STEP 1 - Configuration steps for the Cofense Client ID and Client Secret**\n\n Follow these instructions to create an Cofense Client ID and Client Secret.\n 1. Log into your Cofense instance\n 2. Navigate to Settings -> API Management\n 3. If the secret key has not already been created, press the Create button to create the secret key\n 4. To access the secret key, press the Show button\n 5. The secret key can now be copied and used during the Cofense Threat Indicators connector configuration"
+            "description": "**STEP 1 - Registration steps for the Microsoft Azure Active Directory application.**\n\n This integration requires an App registration in the Azure portal. Follow the steps in this section to create a new Azure Active Directory application:\n 1. Sign in to the Azure portal.\n 2. Search for and select Azure Active Directory.\n 3. Under Manage, select App registrations > New registration.\n 4. Enter a display Name for your application.\n 5. Select Register to complete the initial app registration.\n 6. When registration finishes, the Azure portal displays the app registration's Overview pane. You see the Application (client) ID and Tenant ID. The client ID and Tenant ID is required as configuration parameters for the execution of CofenseTriage Data Connector.\n> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)"
         },
         {
             "title": "",
-            "description": "**STEP 2 - Choose ONE from the following two deployment options to deploy the connector and the associated Azure Function**\n\n>**IMPORTANT:** Before deploying the Cofense Threat Indicators data connector, have the Workspace ID and Workspace Primary Key (can be copied from the following) readily available.., as well as the Cofense API Authorization Key(s)",
-            "instructions": [{
-                "parameters": {
+            "description": "**STEP 2 - Add a client secret for Microsoft Azure Active Directory application.**\n\n Sometimes called an application password, a client secret is a string value required for the execution of CofenseTriage Data Connector. Follow the steps in this section to create a new App registration:\n 1. In the Azure portal, in App registrations, select your application.\n 2. Select Certificates & secrets > Client secrets > New client secret.\n 3. Add a description for your client secret.\n 4. Select an expiration for the secret or specify a custom lifetime. Limit is 24 months.\n 5. Select Add. \n 6. *Record the secret's value for use in your client application code. This secret value is never displayed again after you leave this page.* The secret value is required as configuration parameter for the execution of CofenseTriage Data Connector.\n> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret)"
+        },
+        {
+            "title": "",
+            "description": "**STEP 3 - Assign permissions to Azure Active Director application.**\n\n Follow the steps in this section to assign the appropriate permissions:\n 1. In the Azure portal, in App registrations, select your application.\n 2. From the App overview page, under Manage, select API Permissions. The Request API permissions window will be displayed.\n 3. Click on Add a permission, and then select Microsoft Graph.\n 4. What type of permissions does your application require?: Select the Application permissions checkbox.\n 5. Select permissions: Search for ThreatIndicators, and check the permission for ThreatIndicators.ReadWrite.OwnedBy.\n 6.  Once the recommended permissions have been added, click the Add permissions button.\n 7. The added permissions will now be listed under the Configured permissions section."
+        },
+        {
+            "title": "",
+            "description": "**STEP 4 - Configuration steps for the Cofense Client ID and Client Secret**\n\n Follow these instructions to create an Cofense Client ID and Client Secret.\n 1. Include steps here"
+        },
+        {
+            "title": "",
+            "description": "**STEP 5 - Choose ONE from the following two deployment options to deploy the connector and the associated Azure Function**\n\n>**IMPORTANT:** Before deploying the Cofense Threat Indicators data connector, have the  Workspace ID and Workspace Primary Key (can be copied from the following) readily available.., as well as the Cofense API Authorization Key(s)",
+            "instructions": [
+                {
+                    "parameters": {
                         "fillWith": [
                             "WorkspaceId"
                         ],
@@ -108,7 +158,7 @@
         },
         {
             "title": "Option 1 - Azure Resource Manager (ARM) Template",
-            "description": "Use this method for automated deployment of the Cofence connector.\n\n1. Click the **Deploy to Azure** button below. \n\n\t[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Frushitajudiya-crest%2Fcofense-triage%2Fmain%2Fazuredeploy_Connector_CofenseTriage_AzureFunction.json)\n2. Select the preferred **Subscription**, **Resource Group** and **Location**. \n3. Enter the below information : \n\t\tFunction Name \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tCofense URL (https://<Cofense-instance>.phishmecloud.com/)  \n\t\tCofense Client ID \n\t\tCofense Client Secret \n\t\tAzure Client ID \n\t\tAzure Client Secret \n\t\tAzure Tenant ID \n\t\tAzure Resource Group Name \n\t\tAzure Workspace Name \n\t\tAzure Subscription ID \n\t\tProxy Username \n\t\tProxy Password \n\t\tProxy URL \n\t\tProxy Port \n\t\tLogLevel \n\t\tReports Table Name \n\t\tSchedule \n4. Mark the checkbox labeled **I agree to the terms and conditions stated above**. \n5. Click **Purchase** to deploy."
+            "description": "Use this method for automated deployment of the Cofence connector.\n\n1. Click the **Deploy to Azure** button below. \n\n\t[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Frushitajudiya-crest%2Fcofense-triage%2Fmain%2Fazuredeploy_Connector_CofenseTriage_AzureFunction.json)\n2. Select the preferred **Subscription**, **Resource Group** and **Location**. \n3. Enter the below information : \n\t\tFunction Name \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tCofense URL (https://<Cofense-instance>.phishmecloud.com/)  \n\t\tCofense Client ID \n\t\tCofense Client Secret \n\t\tAzure Client ID \n\t\tAzure Client Secret \n\t\tAzure Tenant ID \n\t\tAzure Resource Group Name \n\t\tAzure Workspace Name \n\t\tAzure Subscription ID \n\t\tProxy Username (optional) \n\t\tProxy Password (optional) \n\t\tProxy URL (optional) \n\t\tProxy Port (optional) \n\t\tLogLevel (optional) \n\t\tReports Table Name \n\t\tSchedule \n4. Mark the checkbox labeled **I agree to the terms and conditions stated above**. \n5. Click **Purchase** to deploy."
         },
         {
             "title": "Option 2 - Manual Deployment of Azure Functions",
@@ -120,7 +170,7 @@
         },
         {
             "title": "",
-            "description": "**2. Configure the Function App**\n\n1. In the Function App, select the Function App Name and select **Configuration**.\n2. In the **Application settings** tab, select **+ New application setting**.\n3. Add each of the following application settings individually, with their respective values (case-sensitive): \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tCofense URL (https://<Cofense-instance>.phishmecloud.com/)  \n\t\tCofense Client ID \n\t\tCofense Client Secret \n\t\tAzure Client ID \n\t\tAzure Client Secret \n\t\tAzure Tenant ID \n\t\tAzure Resource Group Name \n\t\tAzure Workspace Name \n\t\tAzure Subscription ID \n\t\tProxy Username \n\t\tProxy Password \n\t\tProxy URL \n\t\tProxy Port \n\t\tLogLevel \n\t\tReports Table Name \n\t\tSchedule \n\t\tlogAnalyticsUri (optional) \n - Use logAnalyticsUri to override the log analytics API endpoint for dedicated cloud. For example, for public cloud, leave the value empty; for Azure GovUS cloud environment, specify the value in the following format: `https://<CustomerId>.ods.opinsights.azure.us`.\n4. Once all application settings have been entered, click **Save**."
+            "description": "**2. Configure the Function App**\n\n1. In the Function App, select the Function App Name and select **Configuration**.\n2. In the **Application settings** tab, select **+ New application setting**.\n3. Add each of the following application settings individually, with their respective values (case-sensitive): \n\t\tWorkspace ID \n\t\tWorkspace Key \n\t\tCofense URL (https://<Cofense-instance>.phishmecloud.com/)  \n\t\tCofense Client ID \n\t\tCofense Client Secret \n\t\tAzure Client ID \n\t\tAzure Client Secret \n\t\tAzure Tenant ID \n\t\tAzure Resource Group Name \n\t\tAzure Workspace Name \n\t\tAzure Subscription ID \n\t\tProxy Username (optional) \n\t\tProxy Password (optional) \n\t\tProxy URL (optional) \n\t\tProxy Port (optional) \n\t\tLogLevel (optional) \n\t\tReports Table Name \n\t\tSchedule \n\t\tlogAnalyticsUri (optional) \n - Use logAnalyticsUri to override the log analytics API endpoint for dedicated cloud. For example, for public cloud, leave the value empty; for Azure GovUS cloud environment, specify the value in the following format: `https://<CustomerId>.ods.opinsights.azure.us`.\n4. Once all application settings have been entered, click **Save**."
         }
     ]
 }
