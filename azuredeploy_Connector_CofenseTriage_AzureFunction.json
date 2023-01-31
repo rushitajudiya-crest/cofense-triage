@@ -30,7 +30,7 @@
             }
         },
         "Cofense_Client_Id":{
-            "type": "securestring",
+            "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Cofense Client Id."
@@ -44,7 +44,7 @@
             }
         },
 	    "Azure_Client_Id":{
-            "type": "securestring",
+            "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Azure Client Id."
@@ -58,7 +58,7 @@
             }
         },
 	    "Azure_Tenant_Id":{
-            "type": "securestring",
+            "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Azure Tenant Id."
@@ -79,7 +79,7 @@
             }
         },
 	    "Azure_Subscription_Id":{
-            "type": "securestring",
+            "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Azure Subscription Id."
@@ -271,7 +271,7 @@
                         "Proxy_Port": "[parameters('Proxy_Port')]",
                         "Reports_Table_name": "[parameters('Reports_Table_name')]",
                         "Schedule": "[parameters('Schedule')]",
-			            "LogLevel": "[parameters('LogLevel')]",
+		    	"LogLevel": "[parameters('LogLevel')]",
                         "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/cofense-triage/blob/main/Cofense.zip?raw=true"
                     }
                 }
