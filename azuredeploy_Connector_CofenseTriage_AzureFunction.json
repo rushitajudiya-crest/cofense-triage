@@ -113,9 +113,18 @@
                 "description": "this is an optional parameter if required enter the proxy port."
             }
         },
-        "LogLevel":{
+        "LogLevel": {
             "type": "string",
-            "defaultValue": "DEBUG"
+            "metadata": {
+                "description": "Debug, Info, Error, Warning"
+            },
+            "allowedValues": [
+            "Debug",
+            "Info",
+            "Error",
+            "Warning"
+            ],
+            "defaultValue": "Info"
         },
 	    "Reports_Table_name":{
             "type": "string",
@@ -271,7 +280,7 @@
                         "Proxy_Port": "[parameters('Proxy_Port')]",
                         "Reports_Table_name": "[parameters('Reports_Table_name')]",
                         "Schedule": "[parameters('Schedule')]",
-		    	"LogLevel": "[parameters('LogLevel')]",
+			            "LogLevel": "[parameters('LogLevel')]",
                         "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/cofense-triage/blob/main/Cofense.zip?raw=true"
                     }
                 }
