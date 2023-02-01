@@ -12,14 +12,14 @@
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Workspace ID."
+                "description": "Enter Workspace ID of log analytics Workspace."
             }
         },
         "WorkspaceKey": {
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Workspace Key."
+                "description": "Enter Workspace Key of log analytics Workspace."
             }
         },
         "BaseURL": {
@@ -33,84 +33,84 @@
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Cofense Client Id."
+                "description": "Enter Cofense Client Id for authentication of cofense."
             }
         },
 	    "Cofense_Client_Secret":{
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Cofense Client Secret."
+                "description": "Enter Cofense Client Secret for authentication of cofense."
             }
         },
 	    "Azure_Client_Id":{
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Azure Client Id."
+                "description": "Enter Azure Client Id that you have created during app registration."
             }
         },
 	    "Azure_Client_Secret":{
             "type": "securestring",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Azure Client Secret."
+                "description": "Enter Azure Client Secret that you have created during creating the client secret."
             }
         },
 	    "Azure_Tenant_Id":{
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Azure Tenant Id."
+                "description": "Enter Azure Tenant Id of your Azure Active Directory."
             }
         },
 	    "Azure_Resource_Group_Name":{
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Azure Resource Group Name."
+                "description": "Enter Azure Resource Group Name in which you want deploy the data connector."
             }
         },
 	    "Azure_Workspace_Name":{
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Azure Workspace Name."
+                "description": "Enter Microsoft Sentinel Workspace Name of log analytics Workspace."
             }
         },
 	    "Azure_Subscription_Id":{
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "Enter Azure Subscription Id."
+                "description": "Enter Azure Subscription Id which is present in the subscription tab in Microsoft Sentinel."
             }
         },
 	    "Proxy_Username":{
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "this is an optional parameter if required enter the proxy username."
+                "description": "This is an optional parameter if required enter the proxy username."
             }
         },
 	    "Proxy_Password":{
             "type": "securestring",
             "defaultValue": "",
             "metadata": {
-                "description": "this is an optional parameter if required enter the proxy password."
+                "description": "This is an optional parameter if required enter the proxy password."
             }
         },
 	    "Proxy_URL":{
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "this is an optional parameter if required enter the proxy url."
+                "description": "This is an optional parameter if required enter the proxy url."
             }
         },
         "Proxy_Port":{
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "this is an optional parameter if required enter the proxy port."
+                "description": "This is an optional parameter if required enter the proxy port."
             }
         },
         "LogLevel": {
@@ -134,7 +134,7 @@
             "type": "string",
             "minLength": 11,
             "metadata": {
-                "description": "Enter cron expression."
+                "description": "Enter a valid Quartz cron-expression. (Example: 0 0 0 * * *)"
             }
         }
     },
