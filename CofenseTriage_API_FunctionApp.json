@@ -2,8 +2,7 @@
     "id": "CofenseTriage",
     "title": "Cofense Triage",
     "publisher": "Cofense-Triage",
-    "descriptionMarkdown": "The [Cofense-Triage](https://cofense.com/product-services/cofense-triage/) CofenseTriage connector gives the capability to ingest Cofense Threat Indicator into Microsoft Sentinel Threat Intelligence Indicator through the Cofense REST API and also Microsoft Threat Intelligence Indicators into Cofense Threat Indicators using REST APIs of Cofense and Microsoft Sentinel. Refer to the Cofense API and Microsoft Threat Intelligence Indicator documentation: `https://<YourCofenseInstance>.phishmecloud.com/docs/api/v2/index.html` and `https://learn.microsoft.com/en-us/rest/api/securityinsights/preview/threat-intelligence-indicator` for more information. The connector provides the ability to get threat indicators information from the Cofense platform and get threat intelligence indicators from microsoft sentinel threat intelligence indicators.",
-    "additionalRequirementBanner": "These queries and workbooks are dependent on a parser based on Kusto to work as expected. Follow the steps to use this Kusto functions alias **CofenseThreatIndicators** in queries and workbooks [Follow steps to get this Kusto functions>](https://aka.ms/sentinel-CofenseReportsLinkAPI-parser).",
+    "descriptionMarkdown": "The [Cofense-Triage](https://cofense.com/product-services/cofense-triage/) data connector gives the below capabilities : \n 1. CofenseBasedIndicatorCreator : \n >* Get Threat Indicators from the Cofense platform and create Threate Intelligence Indicators in Microsoft Sentinel. \n > * Ingest Cofense Indicator ID and report links into custom logs table. \n 2. NonCofenseBasedIndicatorCreatorToCofense : \n >* Get Non-Cofense Threat Intelligence Indicators from Microsoft Sentinel Threat Intelligence and create/update Indicators in Cofese. \n\n\n For more details of REST APIs refer to the below two documentations: \n 1. Cofense API documentation: \n> https://`<your-cofense-instance-name>`.phishmecloud.com/docs/api/v2/index.html \n 2. Microsoft Threat Intelligence Indicator documentation \n> https://learn.microsoft.com/en-us/rest/api/securityinsights/preview/threat-intelligence-indicator",
     "graphQueries": [
         {
             "metricName": "Cofense Threat Indicators data received",
@@ -24,7 +23,7 @@
     "sampleQueries": [
         {
             "description": "Cofense Based Indicators Events - All Cofense indicators in Microsoft Sentinel Threat Intelligence.",
-            "query": "ThreatIntelligenceIndicator | where SourceSystem startswith 'Cofense : ' | sort by TimeGenerated desc"
+            "query": "ThreatIntelligenceIndicator\n | where SourceSystem startswith 'Cofense : '\n | sort by TimeGenerated desc"
         },
         {
             "description": "Cofense report links Events - All cofense indicators report links data.",
@@ -32,20 +31,20 @@
         },
         {
             "description": "Non-Cofense Based Indicators Events - All Non-Cofense indicators in Microsoft Sentinel Threat Intelligence.",
-            "query": "ThreatIntelligenceIndicator | where SourceSystem !startswith 'Cofense : ' | sort by TimeGenerated desc"
+            "query": "ThreatIntelligenceIndicator\n | where SourceSystem !startswith 'Cofense : '\n | sort by TimeGenerated desc"
         }
     ],
     "dataTypes": [
         {
-            "name": "ThreatIntelligenceIndicator",
+            "name": "CofenseBased-ThreatIntelligenceIndicator",
             "lastDataReceivedQuery": "ThreatIntelligenceIndicator\n            | where SourceSystem startswith 'Cofense : '\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
         },
         {
-            "name": "reports_table_CL",
+            "name": "ReportLinksTable",
             "lastDataReceivedQuery": "reports_table_CL\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
         },
         {
-            "name": "ThreatIntelligenceIndicator",
+            "name": "Non-CofenseBased-ThreatIntelligenceIndicator",
             "lastDataReceivedQuery": "ThreatIntelligenceIndicator\n             | where SourceSystem !startswith 'Cofense : '\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
         }
     ],
@@ -103,14 +102,14 @@
             },
             {
                 "name": "REST API Credentials/permissions",
-                "description": "**Cofense Client ID** and **Cofense Client Secret** is required.  See the documentation to learn more about API on the `https://<YourCofenseInstance>.phishmecloud.com/docs/api/v2/index.html`"
+                "description": "**Cofense Client ID** and **Client Secret** is required.  See the documentation to learn more about API on the `https://<YourCofenseInstance>.phishmecloud.com/docs/api/v2/index.html`"
             }
         ]
     },
     "instructionSteps": [
         {
             "title": "",
-            "description": ">**NOTE:** This connector uses Azure Functions to connect to the Cofense API to pull its threat indicators into Microsoft Sentinel Threat Intelligence. This might result in additional data ingestion costs. Check the [Azure Functions pricing page](https://azure.microsoft.com/pricing/details/functions/) for details."
+            "description": ">**NOTE:** This connector uses Azure Functions to connect to the Cofense APIs to pull its Threat Indicators and create Threat Intelligence Indicators into Microsoft Sentinel Threat Intelligence and pulls Non-Cofense Threat Intelligence Indicators from Microsoft Sentinel and create/update Threat Indicators in Cofense. This might result in additional indicator and data ingestion costs. Check the [Azure Functions pricing page](https://azure.microsoft.com/pricing/details/functions/) for details."
         },
         {
             "title": "",
@@ -118,7 +117,7 @@
         },
         {
             "title": "",
-            "description": "**STEP 1 - Registration steps for the Microsoft Azure Active Directory application.**\n\n This integration requires an App registration in the Azure portal. Follow the steps in this section to create a new Azure Active Directory application:\n 1. Sign in to the Azure portal.\n 2. Search for and select Azure Active Directory.\n 3. Under Manage, select App registrations > New registration.\n 4. Enter a display Name for your application.\n 5. Select Register to complete the initial app registration.\n 6. When registration finishes, the Azure portal displays the app registration's Overview pane. You see the Application (client) ID and Tenant ID. The client ID and Tenant ID is required as configuration parameters for the execution of CofenseTriage Data Connector.\n> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)"
+            "description": "**STEP 1 - App Registration steps for the Microsoft Azure Active Directory application.**\n\n This integration requires an App registration in the Azure portal. Follow the steps in this section to create a new Azure Active Directory application:\n 1. Sign in to the Azure portal.\n 2. Search for and select Azure Active Directory.\n 3. Under Manage, select App registrations > New registration.\n 4. Enter a display Name for your application.\n 5. Select Register to complete the initial app registration.\n 6. When registration finishes, the Azure portal displays the app registration's Overview pane. You see the Application (client) ID and Tenant ID. The client ID and Tenant ID is required as configuration parameters for the execution of CofenseTriage Data Connector.\n> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)"
         },
         {
             "title": "",
@@ -126,7 +125,7 @@
         },
         {
             "title": "",
-            "description": "**STEP 3 - Assign permissions to Azure Active Director application.**\n\n Follow the steps in this section to assign the appropriate permissions:\n 1. In the Azure portal, in App registrations, select your application.\n 2. From the App overview page, under Manage, select API Permissions. The Request API permissions window will be displayed.\n 3. Click on Add a permission, and then select Microsoft Graph.\n 4. What type of permissions does your application require?: Select the Application permissions checkbox.\n 5. Select permissions: Search for ThreatIndicators, and check the permission for ThreatIndicators.ReadWrite.OwnedBy.\n 6.  Once the recommended permissions have been added, click the Add permissions button.\n 7. The added permissions will now be listed under the Configured permissions section."
+            "description": "**STEP 3 - Assign role of Contributer to App.**\n\n Follow the steps in this section to assign the role:\n 1. In the Azure portal, Go to Resource Group and select your resource group.\n 2. Go to Access control (IAM) from left panel.\n 3. Click on Add, and then select Add role assignment.\n 4. Select Contributor as role and click on next.\n 5. In Assign access to, select `User, group, or service principal`.\n 6. Click on add members and type your app name that you have created and select it.\n 7. Now click on Review + assign and then again click on Review + assign."
         },
         {
             "title": "",
