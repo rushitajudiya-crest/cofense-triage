@@ -11,8 +11,8 @@
         },
         {
             "metricName": "Total cofense report links data received",
-            "legend": "reports_table_CL",
-            "baseQuery": "reports_table_CL"
+            "legend": "Report_links_data_CL",
+            "baseQuery": "Report_links_data_CL"
         },
         {
             "metricName": "Non-Cofense Threat Indicators data received",
@@ -27,7 +27,7 @@
         },
         {
             "description": "Cofense report links Events - All cofense indicators report links data.",
-            "query": "reports_table_CL\n | sort by TimeGenerated desc"
+            "query": "Report_links_data_CL\n | sort by TimeGenerated desc"
         },
         {
             "description": "Non-Cofense Based Indicators Events - All Non-Cofense indicators in Microsoft Sentinel Threat Intelligence.",
@@ -36,16 +36,12 @@
     ],
     "dataTypes": [
         {
-            "name": "CofenseBased-ThreatIntelligenceIndicator",
-            "lastDataReceivedQuery": "ThreatIntelligenceIndicator\n            | where SourceSystem startswith 'Cofense : '\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
+            "name": "ThreatIntelligenceIndicator",
+            "lastDataReceivedQuery": "ThreatIntelligenceIndicator\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
         },
         {
-            "name": "ReportLinksTable",
-            "lastDataReceivedQuery": "reports_table_CL\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
-        },
-        {
-            "name": "Non-CofenseBased-ThreatIntelligenceIndicator",
-            "lastDataReceivedQuery": "ThreatIntelligenceIndicator\n             | where SourceSystem !startswith 'Cofense : '\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
+            "name": "Report_links_data_CL",
+            "lastDataReceivedQuery": "Report_links_data_CL\n            | summarize Time = max(TimeGenerated)\n            | where isnotempty(Time)"
         }
     ],
     "connectivityCriterias": [
@@ -58,7 +54,7 @@
         {
             "type": "IsConnectedQuery",
             "value": [
-                "reports_table_CL\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
+                "Report_links_data_CL\n            | summarize LastLogReceived = max(TimeGenerated)\n            | project IsConnected = LastLogReceived > ago(30d)"
             ]
         },
         {
@@ -97,6 +93,10 @@
         ],
         "customs": [
             {
+                "name": "Azure Subscription",
+                "description": "Azure Subscription with owner role is required to register an application in azure active directory() and assign role of contributor to app in resource group."
+            },
+            {
                 "name": "Microsoft.Web/sites permissions",
                 "description": "Read and write permissions to Azure Functions to create a Function App is required. [See the documentation to learn more about Azure Functions](https://docs.microsoft.com/azure/azure-functions/)."
             },
@@ -117,23 +117,23 @@
         },
         {
             "title": "",
-            "description": "**STEP 1 - App Registration steps for the Microsoft Azure Active Directory application.**\n\n This integration requires an App registration in the Azure portal. Follow the steps in this section to create a new Azure Active Directory application:\n 1. Sign in to the Azure portal.\n 2. Search for and select Azure Active Directory.\n 3. Under Manage, select App registrations > New registration.\n 4. Enter a display Name for your application.\n 5. Select Register to complete the initial app registration.\n 6. When registration finishes, the Azure portal displays the app registration's Overview pane. You see the Application (client) ID and Tenant ID. The client ID and Tenant ID is required as configuration parameters for the execution of CofenseTriage Data Connector.\n> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)"
+            "description": "**STEP 1 - App Registration steps for the Microsoft Azure Active Directory Application**\n\n This integration requires an App registration in the Azure portal. Follow the steps in this section to create a new Azure Active Directory application:\n 1. Sign in to the Azure portal.\n 2. Search for and select Azure Active Directory.\n 3. Under Manage, select App registrations > New registration.\n 4. Enter a display Name for your application.\n 5. Select Register to complete the initial app registration.\n 6. When registration finishes, the Azure portal displays the app registration's Overview pane. You see the Application (client) ID and Tenant ID. The client ID and Tenant ID is required as configuration parameters for the execution of CofenseTriage Data Connector.\n> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)"
         },
         {
             "title": "",
-            "description": "**STEP 2 - Add a client secret for Microsoft Azure Active Directory application.**\n\n Sometimes called an application password, a client secret is a string value required for the execution of CofenseTriage Data Connector. Follow the steps in this section to create a new App registration:\n 1. In the Azure portal, in App registrations, select your application.\n 2. Select Certificates & secrets > Client secrets > New client secret.\n 3. Add a description for your client secret.\n 4. Select an expiration for the secret or specify a custom lifetime. Limit is 24 months.\n 5. Select Add. \n 6. *Record the secret's value for use in your client application code. This secret value is never displayed again after you leave this page.* The secret value is required as configuration parameter for the execution of CofenseTriage Data Connector.\n> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret)"
+            "description": "**STEP 2 - Add a client secret for Microsoft Azure Active Directory Application**\n\n Sometimes called an application password, a client secret is a string value required for the execution of CofenseTriage Data Connector. Follow the steps in this section to create a new App registration:\n 1. In the Azure portal, in App registrations, select your application.\n 2. Select Certificates & secrets > Client secrets > New client secret.\n 3. Add a description for your client secret.\n 4. Select an expiration for the secret or specify a custom lifetime. Limit is 24 months.\n 5. Select Add. \n 6. *Record the secret's value for use in your client application code. This secret value is never displayed again after you leave this page.* The secret value is required as configuration parameter for the execution of CofenseTriage Data Connector.\n> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret)"
         },
         {
             "title": "",
-            "description": "**STEP 3 - Assign role of Contributer to App.**\n\n Follow the steps in this section to assign the role:\n 1. In the Azure portal, Go to Resource Group and select your resource group.\n 2. Go to Access control (IAM) from left panel.\n 3. Click on Add, and then select Add role assignment.\n 4. Select Contributor as role and click on next.\n 5. In Assign access to, select `User, group, or service principal`.\n 6. Click on add members and type your app name that you have created and select it.\n 7. Now click on Review + assign and then again click on Review + assign."
+            "description": "**STEP 3 - Assign role of Contributer to Microsoft Azure Active Directory Application**\n\n Follow the steps in this section to assign the role:\n 1. In the Azure portal, Go to Resource Group and select your resource group.\n 2. Go to Access control (IAM) from left panel.\n 3. Click on Add, and then select Add role assignment.\n 4. Select Contributor as role and click on next.\n 5. In Assign access to, select `User, group, or service principal`.\n 6. Click on add members and type your app name that you have created and select it.\n 7. Now click on Review + assign and then again click on Review + assign.\n> **Reference link:** [https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal)"
         },
         {
             "title": "",
-            "description": "**STEP 4 - Configuration steps for the Cofense Client ID and Client Secret**\n\n Follow these instructions to create an Cofense Client ID and Client Secret.\n 1. Include steps here"
+            "description": "**STEP 4 - Credentials for the Cofense Client ID and Client Secret** \n\n * Get Cofense Client ID and Client Secret from the Cofense Triage."
         },
         {
             "title": "",
-            "description": "**STEP 5 - Choose ONE from the following two deployment options to deploy the connector and the associated Azure Function**\n\n>**IMPORTANT:** Before deploying the Cofense Threat Indicators data connector, have the  Workspace ID and Workspace Primary Key (can be copied from the following) readily available.., as well as the Cofense API Authorization Key(s)",
+            "description": "**STEP 5 - Choose ONE from the following two deployment options to deploy the connector and the associated Azure Function**\n\n>**IMPORTANT:** Before deploying the Cofense Threat Indicators data connector, have the  Workspace ID and Workspace Primary Key (can be copied from the following) readily available.., as well as the Cofense API Authorization Key(s).",
             "instructions": [
                 {
                     "parameters": {
