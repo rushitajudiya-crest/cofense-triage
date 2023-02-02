@@ -128,7 +128,7 @@
         },
 	    "Reports_Table_name":{
             "type": "string",
-            "defaultValue": "reports_table"
+            "defaultValue": "Report_links_data"
         },
         "Schedule":{
             "type": "string",
