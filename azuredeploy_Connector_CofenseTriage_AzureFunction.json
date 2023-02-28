@@ -280,7 +280,7 @@
                         "Proxy_Port": "[parameters('Proxy_Port')]",
                         "Reports_Table_name": "[parameters('Reports_Table_name')]",
                         "Schedule": "[parameters('Schedule')]",
-			            "LogLevel": "[parameters('LogLevel')]",
+		    	"LogLevel": "[parameters('LogLevel')]",
                         "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/cofense-triage/blob/customer/Cofense.zip?raw=true"
                     }
                 }
