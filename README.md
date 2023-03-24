@@ -59,12 +59,12 @@ To integrate with Cofense Triage make sure you have:
 
 This integration requires an App registration in the Azure portal. Follow the steps in this section to create a new Azure Active Directory application:
 
-1. Sign in to the Azure portal.
-2. Search for and select Azure Active Directory.
-3. Under Manage, select App registrations > New registration.
-4. Enter a display Name for your application.
-5. Select Register to complete the initial app registration.
-6. When registration finishes, the Azure portal displays the app registration's Overview pane. You see the Application (client) ID and Tenant ID. The client ID and Tenant ID is required as configuration parameters for the execution of CofenseTriage Data Connector.
+1. Sign in to the [Azure portal](https://portal.azure.com/).
+2. Search for and select **Azure Active Directory**.
+3. Under **Manage**, select **App registrations > New registration**.
+4. Enter a display **Name** for your application.
+5. Select **Register** to complete the initial app registration.
+6. When registration finishes, the Azure portal displays the app registration's Overview pane. You see the **Application (client) ID** and **Tenant ID**. The client ID and Tenant ID is required as configuration parameters for the execution of CofenseTriage Data Connector.
 
 > **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)
 
