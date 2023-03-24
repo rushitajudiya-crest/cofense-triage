@@ -70,28 +70,28 @@ This integration requires an App registration in the Azure portal. Follow the st
 
 ### STEP 2 - Add a client secret for Microsoft Azure Active Directory Application
 
-Sometimes called an application password, a client secret is a string value required for the execution of CofenseTriage Data Connector. Follow the steps in this section to create a new App registration:
+Sometimes called an application password, a client secret is a string value required for the execution of CofenseTriage Data Connector. Follow the steps in this section to create a new Client Secret:
 
-1. In the Azure portal, in App registrations, select your application.
-2. Select Certificates & secrets > Client secrets > New client secret.
+1. In the Azure portal, in **App registrations**, select your application.
+2. Select **Certificates & secrets > Client secrets > New client secret**.
 3. Add a description for your client secret.
 4. Select an expiration for the secret or specify a custom lifetime. Limit is 24 months.
-5. Select Add.
+5. Select **Add**.
 6. *Record the secret's value for use in your client application code. This secret value is never displayed again after you leave this page.* The secret value is required as configuration parameter for the execution of CofenseTriage Data Connector.
 
-> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret)
+> **Reference link:** [https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret](https://learn.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#add-a-client-secret)"
 
 ### STEP 3 - Assign role of Contributor to Microsoft Azure Active Directory Application
 
 Follow the steps in this section to assign the role:
 
-1. In the Azure portal, Go to Resource Group and select your resource group.
-2. Go to Access control (IAM) from left panel.
-3. Click on Add, and then select Add role assignment.
-4. Select Contributor as role and click on next.
-5. In Assign access to, select User, group, or service principal.
-6. Click on add members and type your app name that you have created and select it.
-7. Now click on Review + assign and then again click on Review + assign.
+1. In the Azure portal, Go to **Resource Group** and select your resource group.
+2. Go to **Access control (IAM)** from left panel.
+3. Click on **Add**, and then select **Add role assignment**.
+4. Select **Contributor** as role and click on next.
+5. In **Assign access to**, select `User, group, or service principal`.
+6. Click on **add members** and type **your app name** that you have created and select it.
+7. Now click on **Review + assign** and then again click on **Review + assign**.
 
 > **Reference link:** [https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal)
 
@@ -99,16 +99,20 @@ Follow the steps in this section to assign the role:
 
 Follow the steps in this section to assign the permissions:
 
-1. In the Azure portal, in App registrations, select your application.
-2. To enable an app to access Defender for Endpoint indicators, assign it 'Ti.ReadWrite.All' permission, on your application page, select API Permissions > Add permission > APIs my organization uses >, type WindowsDefenderATP, and then select WindowsDefenderATP.
-3. Select Application permissions > Ti.ReadWrite.All, and then select Add permissions.
-4. Select Grant consent.
+1. In the Azure portal, in **App registrations**, select **your application**.
+2. To enable an app to access Defender for Endpoint indicators, assign it **'Ti.ReadWrite.All'** permission, on your application page, select **API Permissions > Add permission > APIs my organization uses >, type WindowsDefenderATP, and then select WindowsDefenderATP**.
+3. Select **Application permissions > Ti.ReadWrite.All**, and then select **Add permissions**.
+4. Select **Grant consent**.
 
 > **Reference link:** [https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/exposed-apis-create-app-webapp?view=o365-worldwide](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/exposed-apis-create-app-webapp?view=o365-worldwide)
 
 ### STEP 5 - Configuration steps for the Cofense Client ID and Client Secret
 
-* Get Cofense Client ID and Client Secret from the Cofense Triage.
+Follow the steps in this section to create/get **Cofense Client ID** and **Client Secret**:
+
+1. Go to **Administration > API Management > Version 2 tab > Applications**
+2. Click on **New Application** 
+3. Add the required information and click on **submit**."
 
 ## Deployment<a name="Deployment"></a>
 **Choose ONE from the following two deployment options to deploy the connector and the associated Azure Function:**
